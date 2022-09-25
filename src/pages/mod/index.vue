@@ -1,9 +1,18 @@
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+// 跳转页面
+function toPage() {
+  router.push({ path: "/choice" });
+}
+</script>
 
 <template>
   <div class="header">Mod</div>
   <div class="content">
-    <div class="btn">测试Mod</div>
+    <div class="btn" @click="toPage()">测试Mod</div>
   </div>
 </template>
 

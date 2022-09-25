@@ -14,6 +14,10 @@ const routes = [
     path: "/mod",
     component: () => import("pages/mod"),
   },
+  {
+    path: "/choice",
+    component: () => import("pages/choice"),
+  },
 ];
 
 // 创建路由
