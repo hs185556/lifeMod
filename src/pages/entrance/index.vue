@@ -1,10 +1,23 @@
-<script setup>
-import { ref } from 'vue'
-const msg = ref('入口页')
-let date = new Date().toLocaleDateString()
-</script>
+<script setup></script>
 
 <template>
-    <h1>{{ msg }}</h1>
-    <p>今天的日期是: {{ date }}</p>
+  <div class="header">人生Mod</div>
+  <div class="content">
+    <div class="btn">开始游戏</div>
+    <div class="btn">继续游戏</div>
+    <div class="btn">成就</div>
+    <div class="btn">设置</div>
+    <div class="btn">退出</div>
+  </div>
 </template>
+
+<style scoped>
+.header {
+  padding: 3em;
+  font-weight: 700;
+  font-size: 30px;
+}
+.content {
+  padding: 0 4em;
+}
+</style>

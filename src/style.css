@@ -72,14 +72,16 @@ button:focus-visible {
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #e3e3e3;
   }
   a:hover {
     color: #747bff;
@@ -87,4 +89,29 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.btn {
+  margin-right: 8px;
+  margin-bottom: 12px;
+  width: 100%;
+  color: #fff;
+  border-color: #6592fd;
+  background: #6592fd;
+  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px #0000000b;
+  outline: 0;
+  position: relative;
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+  border: 1px solid transparent;
+  user-select: none;
+  touch-action: manipulation;
+  height: 40px;
+  padding: 8px 15px;
+  font-size: 16px;
+  border-radius: 2px;
+  box-sizing: border-box;
 }
