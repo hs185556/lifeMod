@@ -9,7 +9,11 @@ const routes = [
   {
     path: "/entrance",
     component: () => import("pages/entrance"),
-  }
+  },
+  {
+    path: "/mod",
+    component: () => import("pages/mod"),
+  },
 ];
 
 // 创建路由
