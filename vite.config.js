@@ -10,9 +10,9 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "src"),
       pages: "@/pages",
-      mods: "@/mods",
       assets: "@/assets",
       router: "@/router",
+      utils: "@/utils",
     },
     // 省略文件后缀
     extensions: ["", ".js", ".json", ".vue", ".scss", ".css"],

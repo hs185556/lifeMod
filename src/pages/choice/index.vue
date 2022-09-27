@@ -1,9 +1,22 @@
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+import useStore from "utils/store";
+
+const router = useRouter();
+const store = useStore();
+
+const mod = store.get("mod");
+
+// 跳转页面
+function toPage() {
+  router.push({ path: `/${mod}` });
+}
+</script>
 
 <template>
   <div class="header">选择天赋</div>
   <div class="content">
-    <div class="btn">转生</div>
+    <div class="btn" @click="toPage()">转生</div>
   </div>
 </template>
 
