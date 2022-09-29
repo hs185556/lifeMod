@@ -1,14 +1,14 @@
 <script setup>
+import { inject } from "vue";
 import { useRouter } from "vue-router";
-import useStore from 'utils/store'
 
-const store = useStore();
+const store = inject('store');
 const router = useRouter();
 
 // 跳转页面
 function toPage(mod) {
   store.set({ mod });
-  router.push({ path: "/choice" });
+  router.push({ path: `/mod-${mod}` });
 }
 </script>
 
