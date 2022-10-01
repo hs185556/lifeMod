@@ -23,7 +23,7 @@ const reDrawTalents = () => {
     gameCurrency.value = store.increase("game-currency", -5);
     drawTalents();
   } else {
-    message.warning("你没钱");
+    message.warning("游戏币不足");
   }
 };
 
@@ -40,7 +40,7 @@ function newLife() {
     <!-- 游戏币 -->
     <div class="game-currency">
       游戏币：{{ gameCurrency }}
-      <span @click="reDrawTalents()">&nbsp;刷新</span>
+      <span @click="reDrawTalents()" class="iconfont icon-refresh"></span>
     </div>
     <!-- 天赋+说明+状态 -->
     <div class="talents">
@@ -52,7 +52,11 @@ function newLife() {
       >
         <span class="talent-label">{{ item.label }}</span>
         <span class="talent-desc">&nbsp;{{ item.desc }}</span>
-        <span class="talent-checked">&nbsp;{{ item.checked ? "✓" : "◯" }}</span>
+        <span class="talent-checked">
+          <span class="iconfont icon-selected" v-if="item.checked"></span>
+          <span class="iconfont icon-unselected" v-else></span>
+        </span>
+        <div style="clear:both"></div>
       </div>
     </div>
     <div class="btn" @click="newLife()">转生</div>
@@ -70,6 +74,9 @@ function newLife() {
   text-align: left;
   .game-currency {
     margin-bottom: 50px;
+    span {
+      float: right;
+    }
   }
   .talents {
     margin-bottom: 50px;

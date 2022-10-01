@@ -22,9 +22,9 @@ const { menus } = props;
 
 // 菜单列表
 const menusList = ref([menus]);
-// 返回上一级的菜单
+// 返回的菜单
 const backMenu = {
-  label: "返回上一级",
+  label: "返回",
   exe: () => {
     menusList.value.pop();
   },
@@ -37,8 +37,8 @@ const handleClick = (menu) => {
     menusList.value.push([...menu.children, backMenu]);
     return;
   }
-  // 返回上一级菜单
-  if (menu.label === "返回上一级") {
+  // 返回菜单
+  if (menu.label === "返回") {
     menu.exe();
     return;
   }
@@ -58,7 +58,7 @@ const handleClick = (menu) => {
       :key="menu.label"
       @click="handleClick(menu)"
     >
-      {{ menu.label }}
+      <div class="btn">{{ menu.label }}</div>
     </div>
   </div>
 </template>
@@ -66,13 +66,9 @@ const handleClick = (menu) => {
 <style scoped lang="scss">
 .menu {
   margin-left: 60px;
-  border: 1px solid #000;
   margin-bottom: 50px;
+  margin-right: 12px;
   .menu-item {
-    padding: 20px;
-    text-align: center;
-    line-height: 15px;
-    border-bottom: 1px solid #000;
     &:last-child {
       border-bottom: 0;
     }

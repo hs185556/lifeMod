@@ -39,7 +39,7 @@ const clickMenuItem = (menu) => {
     contentDom.value.scrollTo({
       top: contentDom.value.scrollHeight,
       // 平滑滚动
-      // behavior: "smooth",
+      behavior: "smooth",
     });
   });
 
@@ -52,16 +52,18 @@ const clickMenuItem = (menu) => {
       text: `你${pass ? "通关了" : "没通关"}，获得了${reward}￥`,
     });
     menus.length = 0;
-    menus.push({ label: "结束", exe: () => back() });
+    menus.push({ label: "结束转生", exe: () => back() });
   }
 };
 </script>
 
 <template>
   <div class="header">
-    <p>智慧: {{ wisdom }}</p>
-    <p>金钱: {{ money }}</p>
-    <p>天数: {{ dayLimit }}</p>
+    <div>
+      <p>智慧: {{ wisdom }}</p>
+      <p>金钱: {{ money }}</p>
+      <p>天数: {{ dayLimit }}</p>
+    </div>
   </div>
 
   <div class="content" ref="contentDom">
@@ -80,6 +82,8 @@ const clickMenuItem = (menu) => {
 <style scoped lang="scss">
 .header {
   height: 220px;
+  display: flex;
+  justify-content: space-evenly;
 }
 .content {
   height: calc(100% - 220px);
@@ -88,16 +92,15 @@ const clickMenuItem = (menu) => {
     display: flex;
     margin-bottom: 5px;
     .day {
-      width: 60px;
-      height: 60px;
-      line-height: 60px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
       font-size: 20px;
       font-weight: bold;
     }
     .text {
       flex: 1;
-      border: 1px solid #000;
-      padding: 10px;
+      padding: 8px;
       text-align: left;
       display: flex;
       align-items: center;

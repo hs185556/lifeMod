@@ -47,7 +47,7 @@ export default function useTalent() {
       talent.checked = 0;
     } else {
       if (checkedTalentNum.value >= maxTalentNum) {
-        message.warning("选择数量达到上限");
+        message.warning("天赋数上限");
         return;
       }
       // 勾选

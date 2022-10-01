@@ -1,0 +1,30 @@
+{
+  "id": "3683615",
+  "name": "lifeMod",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1350474",
+      "name": "sq-checked",
+      "font_class": "selected",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "5298547",
+      "name": "checkbox未选中小",
+      "font_class": "unselected",
+      "unicode": "e933",
+      "unicode_decimal": 59699
+    },
+    {
+      "icon_id": "1049937",
+      "name": "刷新",
+      "font_class": "refresh",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    }
+  ]
+}

@@ -114,7 +114,7 @@ defineExpose({
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color: rgba(0, 0, 0, 0.85);
+  color: $color-reverse;
   font-size: 14px;
   font-variant: tabular-nums;
   line-height: 1.5715;
@@ -133,7 +133,7 @@ defineExpose({
   .message-notice-content {
     display: inline-block;
     padding: 10px 16px;
-    background: #fff;
+    background: -webkit-gradient(linear, left top, right bottom, from($bg-color-deep), to($bg-color));
     border-radius: 2px;
     box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
       0 9px 28px 8px rgb(0 0 0 / 5%);
