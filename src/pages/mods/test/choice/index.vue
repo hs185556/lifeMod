@@ -2,43 +2,28 @@
 import { ref, inject } from "vue";
 
 const store = inject("store");
-const { talents, maxTalentNum, drawTalents, effectTalents } = inject('abstract');
-const next = inject('next');
-const message = inject('message');
+const {
+  maxTalentNum,
+  checkedTalentNum,
+  talents,
+  toggleTalent,
+  drawTalents,
+  effectTalents,
+} = inject("abstract");
+const next = inject("next");
+const message = inject("message");
 
 const mod = store.get("mod");
 const gameCurrency = ref(store.get("game-currency") || 0);
 
-// t1 没重置天赋选中
 // 重新抽取天赋
 const reDrawTalents = () => {
   // 检查余额
   if (gameCurrency.value > 5) {
-    gameCurrency.value = store.increase('game-currency', -5);
+    gameCurrency.value = store.increase("game-currency", -5);
     drawTalents();
   } else {
     message.warning("你没钱");
-  }
-};
-
-// 已选天赋数
-let selectedTalentNum = ref(0);
-
-// 选择天赋
-const toggleTalent = (idx) => {
-  const talent = talents.value[idx];
-  // 取消勾选
-  if (talent.checked) {
-    selectedTalentNum.value--;
-    talent.checked = 0;
-  } else {
-    // 勾选
-    if (selectedTalentNum.value >= maxTalentNum) {
-      message.warning("选择数量达到上限");
-      return;
-    }
-    selectedTalentNum.value++;
-    talent.checked = 1;
   }
 };
 
@@ -50,7 +35,7 @@ function newLife() {
 </script>
 
 <template>
-  <div class="header">选择天赋 {{ selectedTalentNum }}/2</div>
+  <div class="header">选择天赋 {{ checkedTalentNum }}/{{ maxTalentNum }}</div>
   <div class="content">
     <!-- 游戏币 -->
     <div class="game-currency">

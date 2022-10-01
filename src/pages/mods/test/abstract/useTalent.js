@@ -1,9 +1,13 @@
-import { ref } from "vue";
-import Random from 'utils/random';
+import { ref, inject } from "vue";
+import Random from "utils/random";
 
 export default function useTalent() {
+  const message = inject("message");
+
   // 天赋数量上限
   const maxTalentNum = 2;
+  // 已选天赋数
+  const checkedTalentNum = ref(0);
   // 天赋池
   const talentPool = [
     {
@@ -30,7 +34,26 @@ export default function useTalent() {
   const talents = ref([]);
   // 抽取天赋
   const drawTalents = () => {
+    checkedTalentNum.value = 0;
     talents.value = Random.arrayItems(talentPool, 3);
+  };
+
+  // 选择/取消天赋
+  const toggleTalent = (idx) => {
+    const talent = talents.value[idx];
+    if (talent.checked) {
+      // 取消勾选
+      checkedTalentNum.value--;
+      talent.checked = 0;
+    } else {
+      if (checkedTalentNum.value >= maxTalentNum) {
+        message.warning("选择数量达到上限");
+        return;
+      }
+      // 勾选
+      checkedTalentNum.value++;
+      talent.checked = 1;
+    }
   };
 
   // 初始化
@@ -38,7 +61,9 @@ export default function useTalent() {
 
   return {
     maxTalentNum,
+    checkedTalentNum,
     talents,
+    toggleTalent,
     drawTalents,
   };
 }
