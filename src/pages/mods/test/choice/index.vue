@@ -1,14 +1,15 @@
 <script setup>
-import { ref } from "vue";
-import { inject } from "vue";
+import { ref, inject } from "vue";
 
 const store = inject("store");
 const { talents, maxTalentNum, drawTalents, effectTalents } = inject('abstract');
 const next = inject('next');
+const message = inject('message');
 
 const mod = store.get("mod");
 const gameCurrency = ref(store.get("game-currency") || 0);
 
+// t1 没重置天赋选中
 // 重新抽取天赋
 const reDrawTalents = () => {
   // 检查余额
@@ -16,7 +17,7 @@ const reDrawTalents = () => {
     gameCurrency.value = store.increase('game-currency', -5);
     drawTalents();
   } else {
-    alert("你没钱");
+    message.warning("你没钱");
   }
 };
 
@@ -33,7 +34,7 @@ const toggleTalent = (idx) => {
   } else {
     // 勾选
     if (selectedTalentNum.value >= maxTalentNum) {
-      alert("选择数量达到上限");
+      message.warning("选择数量达到上限");
       return;
     }
     selectedTalentNum.value++;

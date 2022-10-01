@@ -1,9 +1,10 @@
 <script setup>
-import { ref, nextTick, inject } from "vue";
+import { ref, reactive, nextTick, inject } from "vue";
 import { useRouter } from "vue-router";
+import Menu from "components/Menu";
 
-const store = inject('store');
-const { money, wisdom, dayLimit, study, work, check } = inject('abstract');
+const store = inject("store");
+const { money, wisdom, dayLimit, study, work, check } = inject("abstract");
 const router = useRouter();
 
 // 必须和模板里的 ref 同名
@@ -11,12 +12,17 @@ const contentDom = ref(null);
 // 当前天数
 let now = 1;
 // 菜单
-const menus = [
-  { label: "学习", desc: "你学习了2天", duration: 2, exe: () => study() },
+const menus = reactive([
+  {
+    label: "分类1",
+    children: [
+      { label: "学习", desc: "你学习了2天", duration: 2, exe: () => study() },
+    ],
+  },
   { label: "工作", desc: "你工作了1天", duration: 1, exe: () => work() },
-];
-// 记录
-const records = ref([menus]);
+]);
+// 文字记录
+const records = ref([]);
 
 // 返回
 const back = () => {
@@ -25,7 +31,7 @@ const back = () => {
 // 点击菜单项
 const clickMenuItem = (menu) => {
   menu.exe();
-  records.value.splice(-1, 0, { day: now, text: menu.desc });
+  records.value.push({ day: now, text: menu.desc });
   now += menu.duration;
 
   // 滚动到底部
@@ -41,12 +47,12 @@ const clickMenuItem = (menu) => {
   if (now > dayLimit) {
     const [pass, reward] = check();
     store.increase("game-currency", reward);
-    records.value.splice(
-      -1,
-      1,
-      { time: "", text: `你${pass ? "通关了" : "没通关"}，获得了${reward}￥` },
-      [{ label: "结束", desc: "", exe: () => back() }]
-    );
+    records.value.push({
+      time: "",
+      text: `你${pass ? "通关了" : "没通关"}，获得了${reward}￥`,
+    });
+    menus.length = 0;
+    menus.push({ label: "结束", exe: () => back() });
   }
 };
 </script>
@@ -59,25 +65,15 @@ const clickMenuItem = (menu) => {
   </div>
 
   <div class="content" ref="contentDom">
-    <template v-for="item of records" :key="item.day || 'menus'">
-      <!-- 菜单 -->
-      <div class="menu" v-if="Array.isArray(item)">
-        <div
-          class="menu-item"
-          v-for="menu of item"
-          :key="menu.label"
-          @click="clickMenuItem(menu)"
-        >
-          {{ menu.label }}
-        </div>
-      </div>
-
-      <!-- 文字描述 -->
-      <div class="desc" v-else>
+    <!-- 文字描述 -->
+    <template v-for="item of records" :key="item.day">
+      <div class="desc">
         <div class="day">{{ item.day }}</div>
         <div class="text">{{ item.text }}</div>
       </div>
     </template>
+    <!-- 菜单 -->
+    <Menu :menus="menus" @itemclick="clickMenuItem"></Menu>
   </div>
 </template>
 
@@ -105,20 +101,6 @@ const clickMenuItem = (menu) => {
       text-align: left;
       display: flex;
       align-items: center;
-    }
-  }
-  .menu {
-    margin-left: 60px;
-    border: 1px solid #000;
-    margin-bottom: 50px;
-    .menu-item {
-      padding: 20px;
-      text-align: center;
-      line-height: 15px;
-      border-bottom: 1px solid #000;
-      &:last-child {
-        border-bottom: 0;
-      }
     }
   }
 }
