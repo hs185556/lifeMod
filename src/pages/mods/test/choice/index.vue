@@ -13,7 +13,6 @@ const {
 const next = inject("next");
 const message = inject("message");
 
-const mod = store.get("mod");
 const gameCurrency = ref(store.get("game-currency") || 0);
 
 // 重新抽取天赋

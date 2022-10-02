@@ -10,29 +10,37 @@ const router = useRouter();
 // 必须和模板里的 ref 同名
 const contentDom = ref(null);
 // 当前天数
-let now = 1;
+let now = store.get("now") || 1;
 // 菜单
-const menus = reactive([
-  {
-    label: "分类1",
-    children: [
-      { label: "学习", desc: "你学习了2天", duration: 2, exe: () => study() },
-    ],
-  },
-  { label: "工作", desc: "你工作了1天", duration: 1, exe: () => work() },
-]);
+const menus = reactive(
+  store.get("menus") || [
+    {
+      label: "分类1",
+      children: [
+        { label: "学习", desc: "你学习了2天", duration: 2, callback: "study" },
+      ],
+    },
+    { label: "工作", desc: "你工作了1天", duration: 1, callback: "work" },
+  ]
+);
 // 文字记录
-const records = ref([]);
+const records = ref(store.get("records") || []);
 
 // 返回
 const back = () => {
+  store.set({ records: "" });
+  store.set({ menus: "" });
+  store.set({ mod: "" });
+  store.set({ now: "" });
   router.push({ path: "/" });
 };
 // 点击菜单项
 const clickMenuItem = (menu) => {
-  menu.exe();
+  menuEvent[menu.callback]();
   records.value.push({ day: now, text: menu.desc });
+  store.set({ records: records.value.slice(-3) });
   now += menu.duration;
+  store.set({ now });
 
   // 滚动到底部
   nextTick(function () {
@@ -51,9 +59,18 @@ const clickMenuItem = (menu) => {
       time: "",
       text: `你${pass ? "通关了" : "没通关"}，获得了${reward}￥`,
     });
+    store.set({ records: records.value.slice(-3) });
     menus.length = 0;
-    menus.push({ label: "结束转生", exe: () => back() });
+    menus.push({ label: "结束转生", callback: "back" });
+    store.set({ menus });
   }
+};
+
+// 菜单事件
+const menuEvent = {
+  study,
+  work,
+  back,
 };
 </script>
 

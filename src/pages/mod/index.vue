@@ -8,6 +8,9 @@ const router = useRouter();
 // 跳转页面
 function toPage(mod) {
   store.set({ mod });
+  store.set({ records: "" });
+  store.set({ menus: "" });
+  store.set({ now: "" });
   router.push({ path: `/mod-${mod}` });
 }
 </script>
