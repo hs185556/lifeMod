@@ -1,10 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, nextTick, inject } from "vue";
 import { useRouter } from "vue-router";
-import Menu from "components/Menu";
+import Menu from "components/Menu.vue";
+import type { MenuType } from "@/components/MenuType";
 
 const store = inject("store");
-const { money, wisdom, dayLimit, study, work, check } = inject("abstract");
+const { money, wisdom, dayLimit, study, work, consum, check } =
+  inject("abstract");
 const router = useRouter();
 
 // 必须和模板里的 ref 同名
@@ -12,7 +14,7 @@ const contentDom = ref(null);
 // 当前天数
 let now = store.get("now") || 1;
 // 菜单
-const menus = reactive(
+const menus = reactive<MenuType[]>(
   store.get("menus") || [
     {
       label: "分类1",
@@ -23,35 +25,51 @@ const menus = reactive(
     { label: "工作", desc: "你工作了1天", duration: 1, callback: "work" },
   ]
 );
+// 固定事件
+const fixedEvents: MenuType[] = reactive(
+  store.get("fixedEvents") || [
+    {
+      label: "吃大餐",
+      desc: "你周末去吃大餐，消费了3￥",
+      duration: 0,
+      callback: "consum",
+      params: 3,
+      commonFactor: 7,
+    },
+  ]
+);
 // 文字记录
 const records = ref(store.get("records") || []);
 
-// 返回
-const back = () => {
-  store.set({ records: "" });
-  store.set({ menus: "" });
-  store.set({ mod: "" });
-  store.set({ now: "" });
+// 结束转生
+const endLife = () => {
+  store.replace({ "game-currency": store.get("game-currency") });
   router.push({ path: "/" });
 };
-// 点击菜单项
-const clickMenuItem = (menu) => {
-  menuEvent[menu.callback]();
+// 菜单事件
+const menuEvent = {
+  study,
+  work,
+  consum,
+  endLife,
+};
+
+// 检查固定事件
+const checkFixedEvent = () => {
+  fixedEvents
+    .filter((v) => now % v.commonFactor === 0)
+    .forEach((v) => runMenu(v));
+};
+// 执行菜单
+const runMenu = (menu) => {
   records.value.push({ day: now, text: menu.desc });
   store.set({ records: records.value.slice(-3) });
   now += menu.duration;
   store.set({ now });
-
-  // 滚动到底部
-  nextTick(function () {
-    contentDom.value.scrollTo({
-      top: contentDom.value.scrollHeight,
-      // 平滑滚动
-      behavior: "smooth",
-    });
-  });
-
-  // 天数检查
+  menuEvent[menu.callback](menu.params);
+};
+// 天数检查
+const checkDay = () => {
   if (now > dayLimit) {
     const [pass, reward] = check();
     store.increase("game-currency", reward);
@@ -61,16 +79,25 @@ const clickMenuItem = (menu) => {
     });
     store.set({ records: records.value.slice(-3) });
     menus.length = 0;
-    menus.push({ label: "结束转生", callback: "back" });
+    menus.push({ label: "结束转生", callback: "endLife" });
     store.set({ menus });
   }
 };
-
-// 菜单事件
-const menuEvent = {
-  study,
-  work,
-  back,
+// 滚动到底部
+const scrollToBottom = () => {
+  nextTick(function () {
+    contentDom.value.scrollTo({
+      top: contentDom.value.scrollHeight,
+      // 平滑滚动
+      behavior: "smooth",
+    });
+  });
+};
+const clickMenuItem = (menu) => {
+  checkFixedEvent();
+  runMenu(menu);
+  checkDay();
+  scrollToBottom();
 };
 </script>
 

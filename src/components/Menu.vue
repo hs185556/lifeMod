@@ -1,21 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
-
-// 定义类型
-interface Menu {
-  label: string;
-  desc?: string;
-  duration?: number;
-  exe?: () => {};
-  children?: Menu[];
-}
+import type { MenuType } from "./MenuType";
 
 // 定义传参和传函
 const props = defineProps<{
-  menus: Menu[];
+  menus: MenuType[];
 }>();
 const emits = defineEmits<{
-  (e: "itemclick", menu: Menu): void;
+  (e: "itemclick", menu: MenuType): void;
 }>();
 
 const { menus } = props;
@@ -47,7 +39,6 @@ const handleClick = (menu) => {
   // 触发传递的点击函数
   emits("itemclick", menu);
 };
-
 </script>
 
 <template>

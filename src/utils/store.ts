@@ -10,6 +10,12 @@ export default function useStore() {
     dataPool.value = val;
     Local.set("data-pool", val);
   };
+  // 替换
+  const replace = function (data) {
+    const val = data;
+    dataPool.value = val;
+    Local.set("data-pool", val);
+  };
   // 读取
   const get = function (key) {
     return dataPool.value[key];
@@ -28,6 +34,7 @@ export default function useStore() {
 
   return {
     set,
+    replace,
     get,
     increase,
   };

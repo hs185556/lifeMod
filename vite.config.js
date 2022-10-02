@@ -16,7 +16,7 @@ export default defineConfig({
       components: "@/components",
     },
     // 省略文件后缀
-    extensions: ["", ".js", ".json", ".vue", ".scss", ".css"],
+    extensions: ["", ".js", ".ts", ".json", ".vue", ".scss", ".css"],
   },
   css: {
     preprocessorOptions: {

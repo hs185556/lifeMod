@@ -25,6 +25,10 @@ export default function useAbstract() {
     // (基本工资 + 智慧加成) * 金钱倍率
     money.value += Math.floor((2 + wisdom.value * 0.5) * earnMoneyRate);
   }
+  // 消费
+  function consum(num) {
+    money.value -= num;
+  }
   // 检查通关
   function check() {
     return [money.value >= 300, parseInt(money.value / 10)]; // 是否通关、奖励
@@ -64,6 +68,7 @@ export default function useAbstract() {
     effectTalents,
     study,
     work,
+    consum,
     check,
   };
 }
