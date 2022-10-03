@@ -3,11 +3,11 @@ import { provide, ref } from "vue";
 import { useRouter } from "vue-router";
 import Choice from "./choice";
 import Main from "./main";
-import useAbstract from "./abstract";
+import useMyAbs from "./abstract";
 
 const router = useRouter();
-const abstract = useAbstract();
-provide("abstract", abstract);
+const myAbs = useMyAbs();
+provide("abstract", myAbs);
 
 // 单页面组件切换 （为支持/每次刷新单例模式，采用单页面）
 const cIds = ["choice", "main"];

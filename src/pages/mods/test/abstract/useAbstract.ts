@@ -2,8 +2,8 @@ import { ref } from "vue";
 import useTalent from "./useTalent";
 
 export default function useAbstract() {
-  const { maxTalentNum, checkedTalentNum, talents, toggleTalent, drawTalents } =
-    useTalent();
+  const talent = useTalent();
+  const { talents } = talent;
 
   // 金钱
   const money = ref(0);
@@ -57,15 +57,11 @@ export default function useAbstract() {
   };
 
   return {
+    ...talent,
+    effectTalents,
     money,
     wisdom,
     dayLimit,
-    maxTalentNum,
-    checkedTalentNum,
-    talents,
-    toggleTalent,
-    drawTalents,
-    effectTalents,
     study,
     work,
     consum,

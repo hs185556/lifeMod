@@ -17,6 +17,9 @@ function toPage(type) {
     case "last":
       router.push({ path: `/mod-${mod}`, query: { cId: "main" } });
       break;
+    case "achievement":
+      router.push({ path: "/achievement" });
+      break;
   }
 }
 </script>
@@ -28,7 +31,7 @@ function toPage(type) {
     <div class="btn" v-if="mod && records?.length" @click="toPage('last')">
       继续游戏
     </div>
-    <div class="btn">成就</div>
+    <div class="btn" @click="toPage('achievement')">成就</div>
     <div class="btn">设置</div>
     <div class="btn">退出</div>
   </div>

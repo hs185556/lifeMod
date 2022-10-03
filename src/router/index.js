@@ -11,6 +11,10 @@ const routes = [
     component: () => import("pages/entrance"),
   },
   {
+    path: "/achievement",
+    component: () => import("pages/achievement"),
+  },
+  {
     path: "/mod",
     component: () => import("pages/mod"),
   },

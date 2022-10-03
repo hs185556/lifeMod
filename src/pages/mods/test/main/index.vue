@@ -5,8 +5,16 @@ import Menu from "components/Menu.vue";
 import type { MenuType } from "@/components/MenuType";
 
 const store = inject("store");
-const { money, wisdom, dayLimit, study, work, consum, check } =
-  inject("abstract");
+const {
+  money,
+  wisdom,
+  dayLimit,
+  reachAchievements,
+  study,
+  work,
+  consum,
+  check,
+} = inject("abstract");
 const router = useRouter();
 
 // 必须和模板里的 ref 同名
@@ -43,7 +51,11 @@ const records = ref(store.get("records") || []);
 
 // 结束转生
 const endLife = () => {
-  store.replace({ "game-currency": store.get("game-currency") });
+  reachAchievements();
+  store.replace({
+    "game-currency": store.get("game-currency"),
+    achievement: store.get("achievement"),
+  });
   router.push({ path: "/" });
 };
 // 菜单事件

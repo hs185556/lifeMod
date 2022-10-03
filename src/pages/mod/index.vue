@@ -2,12 +2,15 @@
 import { inject } from "vue";
 import { useRouter } from "vue-router";
 
-const store = inject('store');
+const store = inject("store");
 const router = useRouter();
 
 // 跳转页面
 function toPage(mod) {
-  store.replace({ "game-currency": store.get("game-currency") });
+  store.replace({
+    "game-currency": store.get("game-currency"),
+    achievement: store.get("achievement"),
+  });
   store.set({ mod });
   router.push({ path: `/mod-${mod}` });
 }
