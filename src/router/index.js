@@ -15,6 +15,10 @@ const routes = [
     component: () => import("pages/achievement"),
   },
   {
+    path: "/setting",
+    component: () => import("pages/setting"),
+  },
+  {
     path: "/mod",
     component: () => import("pages/mod"),
   },

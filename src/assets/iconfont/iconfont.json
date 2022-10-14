@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "384474",
+      "name": "checkbox-checked",
+      "font_class": "checkboxchecked",
+      "unicode": "e683",
+      "unicode_decimal": 59011
+    },
+    {
+      "icon_id": "1727414",
+      "name": "201checkbox-未选",
+      "font_class": "checkbox",
+      "unicode": "e8b5",
+      "unicode_decimal": 59573
+    },
+    {
       "icon_id": "6231099",
       "name": "close-box",
       "font_class": "close-square-fill",

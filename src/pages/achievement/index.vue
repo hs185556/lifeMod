@@ -6,7 +6,7 @@ import { modAchievements } from "pages/mods/constant";
 const store = inject("store");
 const router = useRouter();
 
-const achievement = store.get("achievement");
+const achievement = store.get("keep", "achievement");
 // 全部成就
 
 // 分类
@@ -38,7 +38,7 @@ function toPage() {
       >
         <div class="title">
           <span>{{ index }}</span
-          >{{ achievement[classify].includes(item.value) ? item.title : "???" }}
+          >{{ achievement && achievement[classify].includes(item.value) ? item.title : "???" }}
         </div>
         <div class="desc">解锁条件:{{ item.condition }}</div>
       </div>

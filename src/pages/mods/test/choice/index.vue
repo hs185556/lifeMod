@@ -13,13 +13,13 @@ const {
 const next = inject("next");
 const message = inject("message");
 
-const gameCurrency = ref(store.get("game-currency") || 0);
+const gameCurrency = ref(store.get("keep", "currency") || 0);
 
 // 重新抽取天赋
 const reDrawTalents = () => {
   // 检查余额
   if (gameCurrency.value > 5) {
-    gameCurrency.value = store.increase("game-currency", -5);
+    gameCurrency.value = store.increase("keep", "currency", -5);
     drawTalents();
   } else {
     message.warning("游戏币不足");

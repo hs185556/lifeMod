@@ -20,10 +20,10 @@ const router = useRouter();
 // 必须和模板里的 ref 同名
 const contentDom = ref(null);
 // 当前天数
-let now = store.get("now") || 1;
+let now = store.get("run", "now") || 1;
 // 菜单
 const menus = reactive<MenuType[]>(
-  store.get("menus") || [
+  store.get("run", "menus") || [
     {
       label: "分类1",
       children: [
@@ -35,7 +35,7 @@ const menus = reactive<MenuType[]>(
 );
 // 固定事件
 const fixedEvents: MenuType[] = reactive(
-  store.get("fixedEvents") || [
+  store.get("run", "fixedEvents") || [
     {
       label: "吃大餐",
       desc: "你周末去吃大餐，消费了3￥",
@@ -47,15 +47,12 @@ const fixedEvents: MenuType[] = reactive(
   ]
 );
 // 文字记录
-const records = ref(store.get("records") || []);
+const records = ref(store.get("run", "records") || []);
 
 // 结束转生
 const endLife = () => {
   reachAchievements();
-  store.replace({
-    "game-currency": store.get("game-currency"),
-    achievement: store.get("achievement"),
-  });
+  store.clear();
   router.push({ path: "/" });
 };
 // 菜单事件
@@ -75,25 +72,22 @@ const checkFixedEvent = () => {
 // 执行菜单
 const runMenu = (menu) => {
   records.value.push({ day: now, text: menu.desc });
-  store.set({ records: records.value.slice(-3) });
   now += menu.duration;
-  store.set({ now });
   menuEvent[menu.callback](menu.params);
 };
-// 天数检查
+// 天数检查 返true继续执行
 const checkDay = () => {
   if (now > dayLimit) {
     const [pass, reward] = check();
-    store.increase("game-currency", reward);
+    store.increase("keep", "currency", reward);
     records.value.push({
       time: "",
       text: `你${pass ? "通关了" : "没通关"}，获得了${reward}￥`,
     });
-    store.set({ records: records.value.slice(-3) });
     menus.length = 0;
     menus.push({ label: "结束转生", callback: "endLife" });
-    store.set({ menus });
   }
+  return now <= dayLimit;
 };
 // 滚动到底部
 const scrollToBottom = () => {
@@ -105,11 +99,19 @@ const scrollToBottom = () => {
     });
   });
 };
+// 存
+function deposit() {
+  store.set("abstract", "money", money.value);
+  store.set("run", "menus", menus);
+  store.set("run", "records", records.value.slice(-3));
+  store.set("run", "now", now);
+}
 const clickMenuItem = (menu) => {
   checkFixedEvent();
   runMenu(menu);
-  checkDay();
+  const flag = checkDay();
   scrollToBottom();
+  flag && deposit();
 };
 </script>
 

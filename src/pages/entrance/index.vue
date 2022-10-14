@@ -6,7 +6,7 @@ const store = inject("store");
 const router = useRouter();
 
 const mod = store.get("mod");
-const records = store.get("records");
+const records = store.get("run", "records");
 
 // 跳转页面
 function toPage(type) {
@@ -20,6 +20,9 @@ function toPage(type) {
     case "achievement":
       router.push({ path: "/achievement" });
       break;
+    case "setting":
+      router.push({ path: "/setting" });
+      break;
   }
 }
 </script>
@@ -32,7 +35,7 @@ function toPage(type) {
       继续游戏
     </div>
     <div class="btn" @click="toPage('achievement')">成就</div>
-    <div class="btn">设置</div>
+    <div class="btn" @click="toPage('setting')">设置</div>
     <div class="btn">退出</div>
   </div>
 </template>

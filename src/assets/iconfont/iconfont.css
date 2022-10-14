@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3683615 */
-  src: url('iconfont.woff2?t=1664716719827') format('woff2'),
-       url('iconfont.woff?t=1664716719827') format('woff'),
-       url('iconfont.ttf?t=1664716719827') format('truetype');
+  src: url('iconfont.woff2?t=1665410312360') format('woff2'),
+       url('iconfont.woff?t=1665410312360') format('woff'),
+       url('iconfont.ttf?t=1665410312360') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-checkboxchecked:before {
+  content: "\e683";
+}
+
+.icon-checkbox:before {
+  content: "\e8b5";
 }
 
 .icon-close-square-fill:before {

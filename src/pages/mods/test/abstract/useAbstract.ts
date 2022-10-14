@@ -1,33 +1,45 @@
-import { ref } from "vue";
+import { ref, inject } from "vue";
 import useTalent from "./useTalent";
 
 export default function useAbstract() {
   const talent = useTalent();
   const { talents } = talent;
 
+  const store = inject("store");
   // 金钱
-  const money = ref(0);
+  const money = ref(store.get("abstract", "money") || 0);
   // 智慧
-  const wisdom = ref(0);
+  const wisdom = ref(store.get("abstract", "wisdom") || 0);
   // 天数限制
   const dayLimit = 30;
   // 智慧增长基数
-  let wisdomAddBase = 4;
+  let wisdomAddBase = store.get("abstract", "wisdomAddBase") || 4;
   // 赚钱速率
-  let earnMoneyRate = 1;
+  let earnMoneyRate = store.get("abstract", "earnMoneyRate") || 1;
+
+  // 存
+  function deposit() {
+    store.set("abstract", "money", money.value);
+    store.set("abstract", "wisdom", wisdom.value);
+    store.set("abstract", "wisdomAddBase", wisdomAddBase);
+    store.set("abstract", "earnMoneyRate", earnMoneyRate);
+  }
 
   // 学习
   function study() {
     wisdom.value += Math.floor(wisdomAddBase);
+    deposit();
   }
   // 工作
   function work() {
     // (基本工资 + 智慧加成) * 金钱倍率
     money.value += Math.floor((2 + wisdom.value * 0.5) * earnMoneyRate);
+    deposit();
   }
   // 消费
   function consum(num) {
     money.value -= num;
+    deposit();
   }
   // 检查通关
   function check() {

@@ -9,9 +9,9 @@ export default function useAchievement() {
   const store = inject("store");
   const mod = store.get("mod");
   // 已有成就
-  const achievement = store.get("achievement") || {};
+  const achievement = store.get("keep", "achievement") || {};
   // 当前模板成就
-  const achievements = modAchievements[mod];
+  const achievements = modAchievements[mod] || [];
 
   // 达成成就
   const reachAchievements = () => {
@@ -24,20 +24,15 @@ export default function useAchievement() {
           }
           break;
         case "supperrich":
-          if (money.value <= 600) {
+          if (money.value >= 600) {
             list.push(element.value);
           }
           break;
       }
     });
-    store.set({
-      achievement: {
-        ...modAchievements,
-        test: Array.from(
-          new Set([...list, ...(achievement[mod]?.value || [])])
-        ),
-      },
-    });
+    store.set("keep", "achievement", "test", Array.from(
+      new Set([...list, ...(achievement[mod] || [])])
+    ));
   };
 
   return {
