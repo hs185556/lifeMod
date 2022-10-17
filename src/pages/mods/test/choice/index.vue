@@ -39,7 +39,10 @@ function newLife() {
     <!-- 游戏币 -->
     <div class="game-currency">
       游戏币：{{ gameCurrency }}
-      <span @click="reDrawTalents()" class="iconfont icon-refresh"></span>
+      <span @click="reDrawTalents()">
+        5币&nbsp;
+        <span class="iconfont icon-refresh"></span>
+      </span>
     </div>
     <!-- 天赋+说明+状态 -->
     <div class="talents">
@@ -55,7 +58,7 @@ function newLife() {
           <span class="iconfont icon-selected" v-if="item.checked"></span>
           <span class="iconfont icon-unselected" v-else></span>
         </span>
-        <div style="clear:both"></div>
+        <div style="clear: both"></div>
       </div>
     </div>
     <div class="btn" @click="newLife()">转生</div>
