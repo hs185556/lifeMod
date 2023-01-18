@@ -1,6 +1,5 @@
 <script setup>
 import { provide, ref, onMounted } from "vue";
-import useStore from "utils/store";
 import Message from "components/Message";
 import Music from "components/Music";
 
@@ -12,9 +11,6 @@ onMounted(() => {
   provide("music", music.value);
 });
 
-// 单例模式
-const store = useStore();
-provide("store", store);
 </script>
 
 <template>

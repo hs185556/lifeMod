@@ -1,8 +1,9 @@
-import { ref, toRef } from "vue";
-import Local from "./local";
-import Obj from "./obj";
+import { defineStore } from "utils/pinia";
+import { computed, reactive, toRefs, ref } from "vue";
+import Local from "utils/local";
+import Obj from "utils/obj";
 
-export default function useStore() {
+export const useModStore = defineStore('mod',()=>{
   const dataPool = ref(Local.get("data-pool"));
 
   // 设置合并 支持对象/不定参
@@ -70,4 +71,33 @@ export default function useStore() {
     increase,
     clear,
   };
-}
+})
+
+/* export const useStore = defineStore('mian',()=>{
+  const state = reactive({a:1})
+  const double = computed(()=>{
+    return state.a*2
+  })
+  const add = (num)=> state.a +=num
+  return { ...toRefs(state),double,add }
+}) */
+
+/* import { defineStore } from "utils/pinia";
+export const useStore = defineStore({
+  id: "main",
+  state: () => {
+    return {
+      a: 1,
+    };
+  },
+  getters: {
+    double: (store) => {
+      return store.a * 2;
+    },
+  },
+  actions: {
+    add(num) {
+      this.a += 1;
+    },
+  },
+}); */

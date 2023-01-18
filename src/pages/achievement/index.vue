@@ -2,8 +2,9 @@
 import { ref, inject } from "vue";
 import { useRouter } from "vue-router";
 import { modAchievements } from "pages/mods/constant";
+import { useModStore } from 'store/mod';
 
-const store = inject("store");
+const store = useModStore();
 const router = useRouter();
 
 const achievement = store.get("keep", "achievement");

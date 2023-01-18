@@ -1,8 +1,9 @@
 <script setup>
 import { ref, inject } from "vue";
 import { useRouter } from "vue-router";
+import { useModStore } from 'store/mod';
 
-const store = inject("store");
+const store = useModStore();
 const router = useRouter();
 
 const mod = store.get("mod");

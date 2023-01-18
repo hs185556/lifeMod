@@ -14,6 +14,7 @@ export default defineConfig({
       router: "@/router",
       utils: "@/utils",
       components: "@/components",
+      store: "@/store",
     },
     // 省略文件后缀
     extensions: ["", ".js", ".ts", ".json", ".vue", ".scss", ".css"],

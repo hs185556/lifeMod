@@ -1,11 +1,12 @@
 import { ref, inject } from "vue";
 import useTalent from "./useTalent";
+import { useModStore } from 'store/mod';
 
 export default function useAbstract() {
   const talent = useTalent();
   const { talents } = talent;
-
-  const store = inject("store");
+  
+  const store = useModStore();
   // 金钱
   const money = ref(store.get("abstract", "money") || 0);
   // 智慧

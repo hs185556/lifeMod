@@ -3,8 +3,9 @@ import { ref, reactive, nextTick, inject } from "vue";
 import { useRouter } from "vue-router";
 import Menu from "components/Menu.vue";
 import type { MenuType } from "@/components/MenuType";
+import { useModStore } from 'store/mod';
 
-const store = inject("store");
+const store = useModStore();
 const {
   money,
   wisdom,

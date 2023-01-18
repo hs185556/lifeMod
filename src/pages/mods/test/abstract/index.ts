@@ -1,12 +1,13 @@
 import { inject } from "vue";
 import { modAchievements } from "pages/mods/constant";
+import { useModStore } from 'store/mod';
 import useAbstract from "./useAbstract";
 
 export default function useAchievement() {
   const abstract = useAbstract();
   const { money, wisdom } = abstract;
 
-  const store = inject("store");
+  const store = useModStore();
   const mod = store.get("mod");
   // 已有成就
   const achievement = store.get("keep", "achievement") || {};

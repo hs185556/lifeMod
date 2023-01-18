@@ -2,8 +2,9 @@
 import { ref, inject } from "vue";
 import { useRouter } from "vue-router";
 import Checkbox from "components/Checkbox";
+import { useModStore } from 'store/mod';
 
-const store = inject("store");
+const store = useModStore();
 const music = inject("music");
 const router = useRouter();
 

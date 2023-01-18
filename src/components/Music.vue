@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, inject, onMounted } from "vue";
+import { useModStore } from 'store/mod';
 
-const store = inject("store");
+const store = useModStore();
 
 const bgSound = ref(null);
 const soundEffect = ref(null);
