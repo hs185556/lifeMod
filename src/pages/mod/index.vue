@@ -10,7 +10,7 @@ const router = useRouter();
 function toPage(mod) {
   store.clear();
   store.set({ mod });
-  router.push({ path: `/mod-${mod}` });
+  router.push({ path: `/mods` });
 }
 </script>
 

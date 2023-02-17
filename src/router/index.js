@@ -23,8 +23,8 @@ const routes = [
     component: () => import("pages/mod"),
   },
   {
-    path: "/mod-test",
-    component: () => import("pages/mods/test"),
+    path: "/mods",
+    component: () => import("pages/mods"),
   },
 ];
 

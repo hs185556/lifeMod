@@ -16,7 +16,7 @@ function toPage(type) {
       router.push({ path: "/mod" });
       break;
     case "last":
-      router.push({ path: `/mod-${mod}`, query: { cId: "main" } });
+      router.push({ path: `/mods`, query: { cId: "main" } });
       break;
     case "achievement":
       router.push({ path: "/achievement" });
