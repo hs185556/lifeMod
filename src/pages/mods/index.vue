@@ -7,6 +7,9 @@ const modules = import.meta.glob([`./*/*/index.vue`, `./*/*/index.ts`], {
   import: "default",
   eager: true,
 });
+import Foo from './test/abstract/index2'
+var a = new Foo();
+a.randomize()
 
 const store = useModStore();
 const mod = store.get("mod");
