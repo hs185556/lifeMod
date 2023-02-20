@@ -1,3 +1,4 @@
+import Base from './baseMixin'
 // 基于glob自动化导入
 const attrModules = import.meta.glob("./*AttrMixin.ts", {
   import: "default",
@@ -8,7 +9,7 @@ const mehodModules = import.meta.glob("./*MethodMixin.ts", {
   eager: true,
 });
 
-let Foo = class { }
+let Foo = Base
 Object.values(attrModules).map((val) => {
   Foo = val(Foo)
 })
