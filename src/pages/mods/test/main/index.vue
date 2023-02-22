@@ -23,7 +23,6 @@ const {
     <div>
       <p>智慧: {{ wisdom }}</p>
       <p>金钱: {{ money }}</p>
-      <p>天数: {{ dayLimit }}</p>
     </div>
   </div>
 

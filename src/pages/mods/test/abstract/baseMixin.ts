@@ -7,4 +7,12 @@ export default class {
     mod = this.store.get("mod");
     message = inject("message");
     router = useRouter();
+
+    /* 确认框 */
+    confirm = (title, callback) => {
+        if (!confirm(title)) {
+            return;
+        }
+        callback();
+    }
 };

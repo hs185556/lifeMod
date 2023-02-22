@@ -2,10 +2,6 @@ import { ref, nextTick } from "vue";
 
 export default (Base) =>
   class extends Base {
-    // 检查通关
-    check = () => {
-      return [this.money.value >= 300, parseInt(this.money.value / 10)]; // 是否通关、奖励
-    }
     // 结束转生
     endLife = () => {
       this.reachAchievements();

@@ -53,12 +53,6 @@ export default (Base) =>
     };
     // 重新抽取天赋
     reDrawTalents = () => {
-      // 检查余额
-      if (this.gameCurrency.value > 5) {
-        this.gameCurrency.value = this.store.increase("keep", "currency", -5);
-        this.drawTalents();
-      } else {
-        this.message.warning("游戏币不足");
-      }
+      this.drawTalents();
     };
   };

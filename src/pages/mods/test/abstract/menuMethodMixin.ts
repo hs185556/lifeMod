@@ -7,34 +7,34 @@ export default (Base) =>
     checkFixedEvent = () => {
       this.fixedEvents
         .filter((v) => this.now % v.commonFactor === 0)
-        .forEach((v) => this.runMenu(v));
+        .forEach((v) => this.confirmMenu(v));
     };
+    // 菜单确认
+    confirmMenu = (menu) => {
+      if (menu.confirm) {
+        this.confirm(`确定要${menu.label}吗？`, () => {
+          this.runMenu(menu);
+        })
+        return;
+      }
+
+      this.runMenu(menu);
+    }
     // 执行菜单
     runMenu = (menu) => {
+      if (!menu.desc) {
+        this[menu.callback](menu.params);
+        return;
+      }
+
       this.records.value.push({ day: this.now, text: menu.desc });
       this.now += menu.duration;
       this[menu.callback](menu.params);
     };
-    // 天数检查 返true继续执行
-    checkDay = () => {
-      if (this.now > this.dayLimit) {
-        const [pass, reward] = this.check();
-        this.store.increase("keep", "currency", reward);
-        this.records.value.push({
-          time: "",
-          text: `你${pass ? "通关了" : "没通关"}，获得了${reward}￥`,
-        });
-        this.menus.length = 0;
-        this.menus.push({ label: "结束转生", callback: "endLife" });
-      }
-      return this.now <= this.dayLimit;
-    };
     // 点击菜单项
     clickMenuItem = (menu) => {
       this.checkFixedEvent();
-      this.runMenu(menu);
-      const flag = this.checkDay();
-      // this.scrollToBottom();
-      flag && this.deposit();
+      this.confirmMenu(menu);
+      this.deposit();
     };
   };

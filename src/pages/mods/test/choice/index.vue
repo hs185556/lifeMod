@@ -9,7 +9,6 @@ const {
   toggleTalent,
   reDrawTalents,
   newLife,
-  gameCurrency,
 } = inject("abstract");
 </script>
 
@@ -17,10 +16,9 @@ const {
   <div class="header">选择天赋 {{ checkedTalentNum }}/{{ maxTalentNum }}</div>
   <div class="content">
     <!-- 游戏币 -->
-    <div class="game-currency">
-      游戏币：{{ gameCurrency }}
+    <div class="talent-refresh">
+      ㅤ
       <span @click="reDrawTalents()">
-        5币&nbsp;
         <span class="iconfont icon-refresh"></span>
       </span>
     </div>
@@ -54,8 +52,8 @@ const {
 .content {
   padding: 0 2em;
   text-align: left;
-  .game-currency {
-    margin-bottom: 50px;
+  .talent-refresh {
+    margin-bottom: 15px;
     span {
       float: right;
     }

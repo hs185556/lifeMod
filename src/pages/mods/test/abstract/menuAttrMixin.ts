@@ -13,6 +13,7 @@ export default (Base) =>
           ],
         },
         { label: "工作", desc: "你工作了1天", duration: 1, callback: "work" },
+        { label: "结束转生", desc: "" , duration: 0, callback: "endLife", confirm: true }
       ]
     );
     // 固定事件
