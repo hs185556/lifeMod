@@ -1,37 +1,16 @@
 <script setup>
 import { ref, inject } from "vue";
-import { useModStore } from 'store/mod';
+import { useModStore } from "store/mod";
 
-const store = useModStore();
 const {
   maxTalentNum,
   checkedTalentNum,
   talents,
   toggleTalent,
-  drawTalents,
-  effectTalents,
+  reDrawTalents,
+  newLife,
+  gameCurrency,
 } = inject("abstract");
-const next = inject("next");
-const message = inject("message");
-
-const gameCurrency = ref(store.get("keep", "currency") || 0);
-
-// 重新抽取天赋
-const reDrawTalents = () => {
-  // 检查余额
-  if (gameCurrency.value > 5) {
-    gameCurrency.value = store.increase("keep", "currency", -5);
-    drawTalents();
-  } else {
-    message.warning("游戏币不足");
-  }
-};
-
-// 开始游戏
-function newLife() {
-  effectTalents();
-  next();
-}
 </script>
 
 <template>

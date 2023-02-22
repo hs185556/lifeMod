@@ -3,30 +3,27 @@
 import { provide, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useModStore } from "store/mod";
+
+const router = useRouter();
+const store = useModStore();
+const mod = store.get("mod");
+
+const cIds = ["choice", "main"];
+let cId = ref(router.currentRoute.value.query?.cId || "choice");
+const next = function () {
+  cId.value = cIds[cIds.findIndex((v) => v === cId.value) + 1];
+};
+
 const modules = import.meta.glob([`./*/*/index.vue`, `./*/*/index.ts`], {
   import: "default",
   eager: true,
 });
-import Foo from './test/abstract/index2'
-var a = new Foo();
-console.log(a.fixedEvents)
-
-const store = useModStore();
-const mod = store.get("mod");
-
 const Choice = modules[`./${mod}/choice/index.vue`];
 const Main = modules[`./${mod}/main/index.vue`];
-const useMyAbs = modules[`./${mod}/abstract/index.ts`];
-
-const router = useRouter();
-const myAbs = useMyAbs();
-provide("abstract", myAbs);
-
-const cIds = ["choice", "main"];
-let cId = ref(router.currentRoute.value.query?.cId || "choice");
-provide("next", function () {
-  cId.value = cIds[cIds.findIndex((v) => v === cId.value) + 1];
-});
+const Abstract = modules[`./${mod}/abstract/index.ts`];
+const abstract = new Abstract();
+abstract.next = next;
+provide("abstract", abstract);
 </script>
 
 <template>

@@ -5,6 +5,7 @@
       "@": ["src"],
       "@/*": ["src/*"],
       "store/*":["src/store/*"],
-    }
+    },
+    "lib": [ "dom", "es5", "es2015.promise" ,"es2015", "es2017"],
   }
 }

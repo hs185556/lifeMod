@@ -1,43 +1,20 @@
-import { inject } from "vue";
-import { modAchievements } from "pages/mods/constant";
-import { useModStore } from 'store/mod';
-import useAbstract from "./useAbstract";
+import Base from './baseMixin'
+// 基于glob自动化导入
+const attrModules = import.meta.glob("./*AttrMixin.ts", {
+  import: "default",
+  eager: true,
+});
+const mehodModules = import.meta.glob("./*MethodMixin.ts", {
+  import: "default",
+  eager: true,
+});
 
-export default function useAchievement() {
-  const abstract = useAbstract();
-  const { money, wisdom } = abstract;
+let Foo = Base
+Object.values(attrModules).map((val) => {
+  Foo = val(Foo)
+})
+Object.values(mehodModules).map(val => {
+  Foo = val(Foo)
+})
 
-  const store = useModStore();
-  const mod = store.get("mod");
-  // 已有成就
-  const achievement = store.get("keep", "achievement") || {};
-  // 当前模板成就
-  const achievements = modAchievements[mod] || [];
-
-  // 达成成就
-  const reachAchievements = () => {
-    const list = [];
-    achievements.forEach((element) => {
-      switch (element.value) {
-        case "wisdomAndMoney":
-          if (money.value >= 400 && wisdom.value >= 100) {
-            list.push(element.value);
-          }
-          break;
-        case "supperrich":
-          if (money.value >= 600) {
-            list.push(element.value);
-          }
-          break;
-      }
-    });
-    store.set("keep", "achievement", "test", Array.from(
-      new Set([...list, ...(achievement[mod] || [])])
-    ));
-  };
-
-  return {
-    ...abstract,
-    reachAchievements,
-  };
-}
+export default Foo;
