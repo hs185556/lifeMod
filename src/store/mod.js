@@ -3,7 +3,7 @@ import { computed, reactive, toRefs, ref } from "vue";
 import Local from "utils/local";
 import Obj from "utils/obj";
 
-export const useModStore = defineStore('mod',()=>{
+export const useModStore = defineStore("mod", () => {
   const dataPool = ref(Local.get("data-pool"));
 
   // 设置合并 支持对象/不定参
@@ -71,7 +71,7 @@ export const useModStore = defineStore('mod',()=>{
     increase,
     clear,
   };
-})
+});
 
 /* export const useStore = defineStore('mian',()=>{
   const state = reactive({a:1})

@@ -1,5 +1,5 @@
 import { effectScope, markRaw, ref } from "vue";
-import { SymbolPinia } from "@/rootStore";
+import { SymbolPinia } from "@/symbol";
 
 export function createPinia() {
   const scope = effectScope(true);

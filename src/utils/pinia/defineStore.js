@@ -6,7 +6,7 @@ import {
   toRefs,
   computed,
 } from "vue";
-import { SymbolPinia } from "@/rootStore";
+import { SymbolPinia } from "@/symbol";
 
 export function defineStore(idOrOptions, setup) {
   // 第一个参数可能是id，或者对象

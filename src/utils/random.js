@@ -8,6 +8,6 @@ export default {
       rs.push(myArr[rIdx]);
       myArr.splice(rIdx, 1);
     }
-    return rs;
+    return rs.filter(v => v);
   },
 };

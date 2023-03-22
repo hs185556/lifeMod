@@ -7,4 +7,5 @@ export const modAchievements = {
       },
       { title: "超级富翁", value: "supperrich", condition: "财富达到600" },
     ],
+    hilvey: []
   };

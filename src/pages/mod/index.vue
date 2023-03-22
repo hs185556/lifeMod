@@ -17,7 +17,8 @@ function toPage(mod) {
 <template>
   <div class="header">Mod</div>
   <div class="content">
-    <div class="btn" @click="toPage('test')">测试Mod</div>
+    <!-- <div class="btn" @click="toPage('test')">测试Mod</div> -->
+    <div class="btn" @click="toPage('hilvey')">希尔薇</div>
   </div>
 </template>
 
